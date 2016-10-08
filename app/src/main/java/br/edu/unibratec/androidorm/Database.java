@@ -9,7 +9,7 @@ import ollie.Ollie;
  */
 
 public class Database {
-    private String DB_NAME = "bajsahdfsjkse";
+    private String DB_NAME = "BD_Ollie";
     private int DB_VERSION = 1;
 
     public Database(Context context)  {
