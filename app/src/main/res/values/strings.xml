@@ -3,4 +3,5 @@
     <string name="txt_nome">Nome</string>
     <string name="txt_endereco">Endereço</string>
     <string name="cadastrar">Cadastrar</string>
+    <string name="txt_atualizar">Atualizar</string>
 </resources>

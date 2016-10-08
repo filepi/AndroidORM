@@ -1,6 +1,6 @@
 package br.edu.unibratec.androidorm;
 
-import junit.framework.Assert;
+import android.util.Log;
 
 import java.util.List;
 

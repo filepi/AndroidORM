@@ -1,15 +1,20 @@
 package br.edu.unibratec.androidorm;
 
+import java.io.Serializable;
+
 import ollie.Model;
 import ollie.annotation.Column;
+import ollie.annotation.PrimaryKey;
 import ollie.annotation.Table;
+import ollie.annotation.Unique;
 
 /**
  * Created by felipe on 08/10/16.
  */
 
+
 @Table("Pessoa")
-public class Pessoa extends Model {
+public class Pessoa extends Model implements Serializable {
 
     @Column("nome")
     public String nome;
