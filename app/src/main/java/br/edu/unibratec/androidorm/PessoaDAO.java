@@ -1,5 +1,7 @@
 package br.edu.unibratec.androidorm;
 
+import junit.framework.Assert;
+
 import java.util.List;
 
 import ollie.Model;

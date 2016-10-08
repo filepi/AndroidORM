@@ -1,5 +1,6 @@
 package br.edu.unibratec.androidorm;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -19,7 +20,7 @@ public class MainActivity extends AppCompatActivity {
         editTextNome = (EditText) findViewById(R.id.editText_nome);
         editTextEndereco = (EditText) findViewById(R.id.editText_endereco);
 
-        new Database(this);
+
     }
 
     public void cadastrarPessoa(View v) {
@@ -27,15 +28,11 @@ public class MainActivity extends AppCompatActivity {
         pessoa.setNome(editTextNome.getText().toString());
         pessoa.setEndereco(editTextNome.getText().toString());
         long id = pessoaDAO.salvarOuAtualizar(pessoa);
-        Toast.makeText(this, pessoaDAO.getPessoaById(id).toString() + " cadastrado com sucessp", Toast.LENGTH_SHORT).show();
-        limparCampos();
+        Toast.makeText(this, pessoaDAO.getPessoaById(id).getNome()+ " cadastrado com sucesso", Toast.LENGTH_SHORT).show();
+        Intent it = new Intent(this, ListActivity.class);
+        startActivity(it);
     }
 
-    private void limparCampos()
-    {
-        editTextEndereco.setText("");
-        editTextNome.setText("");
-    }
 
     private void excluir(Pessoa pessoa)
     {
