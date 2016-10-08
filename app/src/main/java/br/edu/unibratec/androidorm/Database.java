@@ -3,7 +3,6 @@ package br.edu.unibratec.androidorm;
 import android.content.Context;
 
 import ollie.Ollie;
-import ollie.OllieProvider;
 
 /**
  * Created by felipe on 08/10/16.

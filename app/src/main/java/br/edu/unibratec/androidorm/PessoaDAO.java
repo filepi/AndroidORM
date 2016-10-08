@@ -3,7 +3,6 @@ package br.edu.unibratec.androidorm;
 import java.util.List;
 
 import ollie.Model;
-import ollie.query.Query;
 import ollie.query.Select;
 
 /**
@@ -12,18 +11,24 @@ import ollie.query.Select;
 
 public class PessoaDAO {
 
-    public List<Pessoa> listar(){
-        return Select.from(Pessoa.class).fetch();
-    }
-
-    public long salvar(Pessoa pessoa)
+    public long salvarOuAtualizar(Pessoa pessoa)
     {
         return pessoa.save();
     }
 
-    public Pessoa buscar()
+    public List<Pessoa> listaTodasPessoas()
     {
-        Pessoa pessoa = Model.find(Pessoa.class, (long) 1);
-        return Select.from(Pessoa.class).fetchSingle();
+        return Select.from(Pessoa.class).fetch();
+    }
+
+    public void excluir (Pessoa pessoa)
+    {
+        pessoa.delete();
+    }
+
+    public Pessoa getPessoaById(long pessoaID)
+    {
+       return Model.find(Pessoa.class, pessoaID);
     }
 }
+
