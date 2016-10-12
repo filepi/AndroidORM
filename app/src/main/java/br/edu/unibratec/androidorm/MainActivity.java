@@ -1,6 +1,5 @@
 package br.edu.unibratec.androidorm;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -15,6 +14,7 @@ public class MainActivity extends AppCompatActivity {
     EditText editTextEndereco;
     Button btnCadastrar;
     PessoaDAO pessoaDAO = new PessoaDAO();
+    Pessoa pessoa;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,7 +26,10 @@ public class MainActivity extends AppCompatActivity {
         Bundle b = getIntent().getExtras();
         if(b != null)
         {
-            Pessoa pessoa = (Pessoa) b.get(EXTRA_PESSOA);
+            pessoa = (Pessoa) b.get(EXTRA_PESSOA);
+            //Gambiarra
+            //Se reparar o campo id está nulo, abaixo seto o valor para o atributo, tornando possível a atualizacao
+            pessoa.id = b.getLong("ID");
             editTextNome.setText(pessoa.getNome());
             editTextEndereco.setText(pessoa.getEndereco());
             btnCadastrar.setText(R.string.txt_atualizar);
@@ -34,13 +37,23 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void cadastrarOuAtualizarPessoa(View v) {
-        Pessoa pessoa = new Pessoa();
-        pessoa.setNome(editTextNome.getText().toString());
-        pessoa.setEndereco(editTextEndereco.getText().toString());
-        long id = pessoaDAO.salvarOuAtualizar(pessoa);
-        Toast.makeText(this, pessoaDAO.getPessoaById(id).getNome()+ " cadastrado com sucesso", Toast.LENGTH_SHORT).show();
-        Intent it = new Intent(this, ListActivity.class);
-        startActivity(it);
+
+        if (pessoa == null) {
+            //Novo cadastro
+            Pessoa pessoaNew = new Pessoa();
+            pessoaNew.setNome(editTextNome.getText().toString());
+            pessoaNew.setEndereco(editTextEndereco.getText().toString());
+            long id = pessoaDAO.salvarOuAtualizar(pessoaNew, true);
+            Toast.makeText(this, pessoaDAO.getPessoaById(id).getNome()+ " cadastrado com sucesso", Toast.LENGTH_SHORT).show();
+        } else {
+            //Atualizar Cadastro
+            pessoa.setNome(editTextNome.getText().toString());
+            pessoa.setEndereco(editTextEndereco.getText().toString());
+            long id = pessoaDAO.salvarOuAtualizar(pessoa, false);
+            Toast.makeText(this, pessoaDAO.getPessoaById(id).getNome()+ " cadastrado atualizado", Toast.LENGTH_SHORT).show();
+        }
+        setResult(RESULT_OK);
+        finish();
     }
 
 
@@ -49,4 +62,12 @@ public class MainActivity extends AppCompatActivity {
         pessoa.delete();
     }
 
+    public void removeCadastro(View view) {
+        if (pessoa != null){
+            excluir(pessoa);
+            Toast.makeText(this, "Registro removido com sucesso", Toast.LENGTH_SHORT).show();
+            setResult(RESULT_OK);
+            finish();
+        }
+    }
 }

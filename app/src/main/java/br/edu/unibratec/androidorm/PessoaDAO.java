@@ -1,6 +1,6 @@
 package br.edu.unibratec.androidorm;
 
-import android.util.Log;
+import android.os.Bundle;
 
 import java.util.List;
 
@@ -13,10 +13,7 @@ import ollie.query.Select;
 
 public class PessoaDAO {
 
-    public long salvarOuAtualizar(Pessoa pessoa)
-    {
-        return pessoa.save();
-    }
+    public long salvarOuAtualizar(Pessoa pessoa, boolean novoCadastro){ return pessoa.save(); }
 
     public List<Pessoa> listaTodasPessoas()
     {
@@ -28,9 +25,14 @@ public class PessoaDAO {
         pessoa.delete();
     }
 
-    public Pessoa getPessoaById(long pessoaID)
+    public Pessoa getPessoaById(long pessoaID) { return Model.find(Pessoa.class, pessoaID); }
+
+    public Pessoa getPessoaByNome(String nome)
     {
-       return Model.find(Pessoa.class, pessoaID);
+        Bundle args = new Bundle();
+        args.putString("nome",nome);
+        return Select.from(Pessoa.class).where("nome", args).fetchSingle();
     }
+
 }
 

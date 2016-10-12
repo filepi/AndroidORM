@@ -4,9 +4,7 @@ import java.io.Serializable;
 
 import ollie.Model;
 import ollie.annotation.Column;
-import ollie.annotation.PrimaryKey;
 import ollie.annotation.Table;
-import ollie.annotation.Unique;
 
 /**
  * Created by felipe on 08/10/16.
@@ -20,6 +18,7 @@ public class Pessoa extends Model implements Serializable {
     public String nome;
     @Column("endereco")
     public String endereco;
+
 
     public String getNome() {
         return nome;
